@@ -25,24 +25,44 @@ variable "ibmcloud_api_key" {
     type        = string
     description = "IBM Cloud API key associated with user's identity"
     default = "<key>"
+
+    validation{
+        condition = var.ibmcloud_api_key != "" && lower(var.ibmcloud_api_key) != lower("<key>")
+        error_message   = "The ibmcloud_api_key is required and can not be empty."
+    }     
 }
 
 variable "service_instance_id" {
     type        = string
     description = "The cloud instance ID of your account"
     default = ""
+
+    validation{
+        condition = var.service_instance_id != "" && lower(var.service_instance_id) != lower("<cloud_instance_ID>")
+        error_message   = "The service_instance_id is required and can not be empty."
+    }   
 }
 
 variable "ibmcloud_region" {
     type        = string
     description = "The IBM Cloud region where you want to create the resources"
     default = ""
+
+    validation{
+        condition = var.ibmcloud_region != "" && lower(var.ibmcloud_region) != lower("<region>")
+        error_message   = "The ibmcloud_region is required and can not be empty."
+    }
 }
 
 variable "ibmcloud_zone" {
     type        = string
     description = "The zone of an IBM Cloud region where you want to create Power System resources"
     default = ""
+
+    validation{
+        condition = var.ibmcloud_zone != "" && lower(var.ibmcloud_zone) != lower("<zone>")
+        error_message   = "The ibmcloud_zone is required and cannot be empty."
+    }
 }
 
 ################################################################
@@ -82,6 +102,10 @@ variable "master" {
         count       = 3
         memory      = "16"
         processors  = "0.5"
+    }
+    validation {
+        condition       = var.master["count"] >= 3
+        error_message   = "The master.count value should not be less than 3."
     }
 }
 
