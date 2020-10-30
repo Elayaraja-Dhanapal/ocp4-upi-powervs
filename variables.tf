@@ -27,8 +27,8 @@ variable "ibmcloud_api_key" {
     default = "<key>"
 
     validation{
-        condition = var.ibmcloud_api_key != "" && lower(var.ibmcloud_api_key) != lower("<key>")
-        error_message   = "The ibmcloud_api_key is required and can not be empty."
+        condition = var.ibmcloud_api_key != "" && lower(var.ibmcloud_api_key) != "<key>"
+        error_message   = "The ibmcloud_api_key is required and cannot be empty."
     }     
 }
 
@@ -38,8 +38,8 @@ variable "service_instance_id" {
     default = ""
 
     validation{
-        condition = var.service_instance_id != "" && lower(var.service_instance_id) != lower("<cloud_instance_ID>")
-        error_message   = "The service_instance_id is required and can not be empty."
+        condition = var.service_instance_id != "" && lower(var.service_instance_id) != "<cloud_instance_id>"
+        error_message   = "The service_instance_id is required and cannot be empty."
     }   
 }
 
@@ -49,8 +49,8 @@ variable "ibmcloud_region" {
     default = ""
 
     validation{
-        condition = var.ibmcloud_region != "" && lower(var.ibmcloud_region) != lower("<region>")
-        error_message   = "The ibmcloud_region is required and can not be empty."
+        condition = var.ibmcloud_region != "" && lower(var.ibmcloud_region) != "<region>"
+        error_message   = "The ibmcloud_region is required and cannot be empty."
     }
 }
 
@@ -60,7 +60,7 @@ variable "ibmcloud_zone" {
     default = ""
 
     validation{
-        condition = var.ibmcloud_zone != "" && lower(var.ibmcloud_zone) != lower("<zone>")
+        condition = var.ibmcloud_zone != "" && lower(var.ibmcloud_zone) != "<zone>"
         error_message   = "The ibmcloud_zone is required and cannot be empty."
     }
 }
