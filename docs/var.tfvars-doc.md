@@ -68,9 +68,11 @@ worker      = {memory      = "32",   processors  = "0.5",  "count"   = 2}
 
 `memory` is in `GBs` and `count` specifies the number of VMs that should be created for each type.
 
-To enable high availability (HA) for cluster services running on the bastion set the `bastion.count` value to 2. Note that in case of HA, the automation will not setup additional storage (eg: NFS). Value 1 for `bastion.count` implies the default non-HA bastion setup.
+To enable high availability (HA) for cluster services running on the bastion set the bastion `count` value to 2. 
+Note that in case of HA, the automation will not setup NFS storage. `count` of 1 for bastion implies the default non-HA bastion setup.
 
-You can optionally set worker.count value to 0 in which case all the clusters pods will be running on the master/supervisor nodes. Ensure you use proper sizing for master/supervisor nodes to avoid resource starvation for containers.
+You can optionally set the worker `count` value to 0 in which case all the cluster pods will be running on the master/supervisor nodes. 
+Ensure you use proper sizing for master/supervisor nodes to avoid resource starvation for containers.
 
 For PowerVS processors are equal to entitled physical count. So **N** processors == **N** physical core entitlements == **ceil[N]** vCPUs.
 Here are some examples to help you understand the relationship.
@@ -89,10 +91,10 @@ Here are some examples to help you understand the relationship.
   ```
 
 These set of variables specify the RHEL and RHCOS boot image names. These images should have been already imported in your PowerVS service instance.
-Change the image names according to your environment.
+Change the image names according to your environment. Ensure that you use the correct RHCOS image specific to the pre-release version
 ```
-rhel_image_name     = "rhel-8.2"
-rhcos_image_name    = "rhcos-4.5.4"
+rhel_image_name     = "<rhel_or_centos_image-name>"
+rhcos_image_name    = "<rhcos-image-name>"
 ```
 Note that the boot images should have a minimum disk size of 120GB
 
@@ -123,6 +125,7 @@ Create the SSH key-pair and keep it under the `data` directory
 
 These set of variables specify the RHEL subscription details.
 This is sensitive data, and if you don't want to save it on disk, use environment variables `RHEL_SUBS_USERNAME` and `RHEL_SUBS_PASSWORD` and pass them to `terraform apply` command as shown in the [Quickstart guide](./quickstart.md#setup-terraform-variables).
+If you are using CentOS as the bastion image, then leave these variables as-is.
 
 ```
 rhel_subscription_username  = "user@test.com"
@@ -139,10 +142,11 @@ rhel_smt                    = 4
 ### OpenShift Installation Details
 
 These variables specify the URL for the OpenShift installer and client binaries.
-Change the URL to the specific version that you want to install on PowerVS.
+Change the URL to the specific pre-release version that you want to install on PowerVS.
+Reference link - `https://mirror.openshift.com/pub/openshift-v4/ppc64le/clients/ocp-dev-preview`
 ```
-openshift_install_tarball   = "https://mirror.openshift.com/pub/openshift-v4/ppc64le/clients/ocp/4.5.4/openshift-install-linux.tar.gz"
-openshift_client_tarball    = "https://mirror.openshift.com/pub/openshift-v4/ppc64le/clients/ocp/4.5.4/openshift-client-linux.tar.gz"
+openshift_install_tarball   = "https://mirror.openshift.com/pub/openshift-v4/ppc64le/clients/ocp-dev-preview/latest/openshift-install-linux.tar.gz"
+openshift_client_tarball    = "https://mirror.openshift.com/pub/openshift-v4/ppc64le/clients/ocp-dev-preview/latest/openshift-client-linux.tar.gz"
 ```
 
 This variable specifies the OpenShift pull secret. This is available from the following link -  https://cloud.redhat.com/openshift/install/power/user-provisioned

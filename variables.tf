@@ -24,10 +24,10 @@
 variable "ibmcloud_api_key" {
     type        = string
     description = "IBM Cloud API key associated with user's identity"
-    default = "<key>"
+    default     = "<key>"
 
     validation{
-        condition = var.ibmcloud_api_key != "" && lower(var.ibmcloud_api_key) != "<key>"
+        condition       = var.ibmcloud_api_key != "" && lower(var.ibmcloud_api_key) != "<key>"
         error_message   = "The ibmcloud_api_key is required and cannot be empty."
     }     
 }
@@ -35,10 +35,10 @@ variable "ibmcloud_api_key" {
 variable "service_instance_id" {
     type        = string
     description = "The cloud instance ID of your account"
-    default = ""
+    default     = ""
 
     validation{
-        condition = var.service_instance_id != "" && lower(var.service_instance_id) != "<cloud_instance_id>"
+        condition       = var.service_instance_id != "" && lower(var.service_instance_id) != "<cloud_instance_id>"
         error_message   = "The service_instance_id is required and cannot be empty."
     }   
 }
@@ -46,10 +46,10 @@ variable "service_instance_id" {
 variable "ibmcloud_region" {
     type        = string
     description = "The IBM Cloud region where you want to create the resources"
-    default = ""
+    default     = ""
 
     validation{
-        condition = var.ibmcloud_region != "" && lower(var.ibmcloud_region) != "<region>"
+        condition       = var.ibmcloud_region != "" && lower(var.ibmcloud_region) != "<region>"
         error_message   = "The ibmcloud_region is required and cannot be empty."
     }
 }
@@ -57,10 +57,10 @@ variable "ibmcloud_region" {
 variable "ibmcloud_zone" {
     type        = string
     description = "The zone of an IBM Cloud region where you want to create Power System resources"
-    default = ""
+    default     = ""
 
     validation{
-        condition = var.ibmcloud_zone != "" && lower(var.ibmcloud_zone) != "<zone>"
+        condition       = var.ibmcloud_zone != "" && lower(var.ibmcloud_zone) != "<zone>"
         error_message   = "The ibmcloud_zone is required and cannot be empty."
     }
 }
@@ -70,7 +70,7 @@ variable "ibmcloud_zone" {
 ################################################################
 
 variable "bastion" {
-    type = object({ count = number, memory = string, processors = string })
+    type    = object({ count = number, memory = string, processors = string })
     # only one node is supported
     default = {
         count       = 1
@@ -84,7 +84,7 @@ variable "bastion" {
 }
 
 variable "bootstrap" {
-    type = object({ count = number, memory = string, processors = string })
+    type    = object({ count = number, memory = string, processors = string })
     default = {
         count       = 1
         memory      = "16"
@@ -97,7 +97,7 @@ variable "bootstrap" {
 }
 
 variable "master" {
-    type = object({ count = number, memory = string, processors = string })
+    type    = object({ count = number, memory = string, processors = string })
     default = {
         count       = 3
         memory      = "16"
@@ -110,7 +110,7 @@ variable "master" {
 }
 
 variable "worker" {
-    type = object({ count = number, memory = string, processors = string })
+    type    = object({ count = number, memory = string, processors = string })
     default = {
         count       = 2
         memory      = "16"
@@ -121,31 +121,31 @@ variable "worker" {
 variable "rhel_image_name" {
     type        = string
     description = "Name of the RHEL image that you want to use for the bastion node"
-    default = "rhel-8.2"
+    default     = "rhel-8.2"
 }
 
 variable "rhcos_image_name" {
     type        = string
     description = "Name of the RHCOS image that you want to use for OCP nodes"
-    default = "rhcos-4.6"
+    default     = "rhcos-4.6"
 }
 
 variable "processor_type" {
     type        = string
     description = "The type of processor mode (shared/dedicated)"
-    default = "shared"
+    default     = "shared"
 }
 
 variable "system_type" {
     type        = string
     description = "The type of system (s922/e980)"
-    default = "s922"
+    default     = "s922"
 }
 
 variable "network_name" {
     type        = string
     description = "The name of the network to be used for deploy operations"
-    default = "my_network_name"
+    default     = "my_network_name"
 }
 
 variable "rhel_username" {
@@ -157,21 +157,21 @@ variable "public_key_file" {
     type        = string
     description = "Path to public key file"
     # if empty, will default to ${path.cwd}/data/id_rsa.pub
-    default     = "~/.ssh/id_rsa.pub"
+    default     = "data/id_rsa.pub"
 }
 
 variable "private_key_file" {
     type        = string
     description = "Path to private key file"
     # if empty, will default to ${path.cwd}/data/id_rsa
-    default     = "~/.ssh/id_rsa"
+    default     = "data/id_rsa"
 }
 
 variable "private_key" {
     type        = string
     description = "content of private ssh key"
     # if empty string will read contents of file at var.private_key_file
-    default = ""
+    default     = ""
 }
 
 variable "public_key" {
@@ -194,7 +194,7 @@ variable "rhel_subscription_password" {
 variable "rhel_smt" {
     type        = number
     description = "SMT value to set on the bastion node. Eg: on,off,2,4,8"
-    default = 4
+    default     = 4
 }
 
 ################################################################
@@ -209,35 +209,35 @@ variable "ssh_agent" {
 variable "installer_log_level" {
     type        = string
     description = "Set the log level required for openshift-install commands"
-    default = "info"
+    default     = "info"
 }
 
 variable "helpernode_repo" {
     type        = string
     description = "Set the repo URL for using ocp4-helpernode"
     # Repo for running ocp4 installations steps.
-    default = "https://github.com/RedHatOfficial/ocp4-helpernode"
+    default     = "https://github.com/RedHatOfficial/ocp4-helpernode"
 }
 
 variable "helpernode_tag" {
     type        = string
     description = "Set the branch/tag name or commit# for using ocp4-helpernode repo"
     # Checkout level for https://github.com/RedHatOfficial/ocp4-helpernode which is used for setting up services required on bastion node
-    default = "dd8a0767c677fc862e45b6d70e5d04656ced5d28"
+    default     = "dd8a0767c677fc862e45b6d70e5d04656ced5d28"
 }
 
 variable "install_playbook_repo" {
     type        = string
     description = "Set the repo URL for using ocp4-playbooks"
     # Repo for running ocp4 installations steps.
-    default = "https://github.com/ocp-power-automation/ocp4-playbooks"
+    default     = "https://github.com/ocp-power-automation/ocp4-playbooks"
 }
 
 variable "install_playbook_tag" {
     type        = string
     description = "Set the branch/tag name or commit# for using ocp4-playbooks repo"
     # Checkout level for https://github.com/ocp-power-automation/ocp4-playbooks which is used for running ocp4 installations steps
-    default = "c6e6038dba0856e621697c876bd3a65927f46166"
+    default     = "c6e6038dba0856e621697c876bd3a65927f46166"
 }
 
 variable "ansible_extra_options" {
@@ -248,12 +248,12 @@ variable "ansible_extra_options" {
 
 variable "pull_secret_file" {
     type    = string
-    default   = "data/pull-secret.txt"
+    default = "data/pull-secret.txt"
 }
 
 variable "dns_forwarders" {
     type    = string
-    default   = "8.8.8.8; 8.8.4.4"
+    default = "8.8.8.8; 8.8.4.4"
 }
 
 variable "rhcos_kernel_options" {
@@ -288,7 +288,7 @@ variable "setup_squid_proxy" {
 variable proxy {
     type        = object({})
     description = "External Proxy server details in a map"
-    default = {}
+    default     = {}
 #    default = {
 #        server = "10.10.1.166",
 #        port = "3128"
@@ -309,12 +309,12 @@ locals {
 ################################################################
 variable "openshift_install_tarball" {
     type    = string
-    default = "https://mirror.openshift.com/pub/openshift-v4/ppc64le/clients/ocp-dev-preview/latest-4.6/openshift-install-linux.tar.gz"
+    default = "https://mirror.openshift.com/pub/openshift-v4/ppc64le/clients/ocp-dev-preview/latest/openshift-install-linux.tar.gz"
 }
 
 variable "openshift_client_tarball" {
     type    = string
-    default = "https://mirror.openshift.com/pub/openshift-v4/ppc64le/clients/ocp-dev-preview/latest-4.6/openshift-client-linux.tar.gz"
+    default = "https://mirror.openshift.com/pub/openshift-v4/ppc64le/clients/ocp-dev-preview/latest/openshift-client-linux.tar.gz"
 }
 
 variable "release_image_override" {
@@ -325,7 +325,7 @@ variable "release_image_override" {
 # Must consist of lower case alphanumeric characters, '-' or '.', and must start and end with an alphanumeric character
 variable "cluster_domain" {
     type    = string
-    default   = "ibm.com"
+    default = "ibm.com"
     validation {
         condition     = can(regex("^[a-z0-9]+[a-zA-Z0-9_\\-.]*[a-z0-9]+$", var.cluster_domain))
         error_message = "The cluster_domain value must be a lower case alphanumeric characters, '-' or '.', and must start and end with an alphanumeric character."
@@ -335,7 +335,7 @@ variable "cluster_domain" {
 # Should not be more than 14 characters
 variable "cluster_id_prefix" {
     type    = string
-    default   = "test-ocp"
+    default = "test-ocp"
     validation {
         condition     = can(regex("^[a-z0-9]+[a-zA-Z0-9_\\-.]*[a-z0-9]+$", var.cluster_id_prefix))
         error_message = "The cluster_id_prefix value must be a lower case alphanumeric characters, '-' or '.', and must start and end with an alphanumeric character."
@@ -349,8 +349,8 @@ variable "cluster_id_prefix" {
 # Must consist of lower case alphanumeric characters, '-' or '.', and must start and end with an alphanumeric character
 # Length cannot exceed 14 characters when combined with cluster_id_prefix
 variable "cluster_id" {
-  type    = string
-    default   = ""
+  type      = string
+    default = ""
     validation {
         condition     = can(regex("^$|^[a-z0-9]+[a-zA-Z0-9_\\-.]*[a-z0-9]+$", var.cluster_id))
         error_message = "The cluster_id value must be a lower case alphanumeric characters, '-' or '.', and must start and end with an alphanumeric character."
@@ -378,70 +378,70 @@ variable "volume_size" {
 variable "volume_type" {
     type        = string
     description = "The volume type (ssd, standard, tier1, tier3)"
-    default = "tier3"
+    default     = "tier3"
 }
 
 variable "volume_shareable" {
     type        = bool
     description = "If the volumes can be shared or not (true/false)"
-    default = false
+    default     = false
 }
 
 variable "master_volume_size" {
     type        = string
     description = "Volume size to attach to the master nodes. If you don't need extra volume to be attached then keep the value empty"
     # Value in GB
-    default = ""
+    default     = ""
 }
 
 variable "worker_volume_size" {
     type        = string
     description = "Volume size to attach to the worker nodes. If you don't need extra volume to be attached then keep the value empty"
     # Value in GB
-    default = ""
+    default     = ""
 }
 
 variable "upgrade_image" {
     type        = string
     description = "OCP upgrade image"
-    default = ""
+    default     = ""
 }
 
 variable "upgrade_pause_time" {
     type        = string
     description = "Number of minutes to pause the playbook execution before starting to check the upgrade status once the upgrade command is executed."
-    default = "90"
+    default     = "90"
 }
 
 variable "upgrade_delay_time" {
     type        = string
     description = "Number of seconds to wait before re-checking the upgrade status once the playbook execution resumes."
-    default = "600"
+    default     = "600"
 }
 
 ################################################################
 # Local registry variables ( used only for restricted network install )
 ################################################################
 variable "enable_local_registry" {
-    type = bool
+    type        = bool
     description = "Set to true to enable usage of local registry for restricted network install."
-    default = false
+    default     = false
 }
 
 variable "local_registry_image" {
     type        = string
     description = "Name of the image used for creating local registry container."
-    default = "docker.io/ibmcom/registry-ppc64le:2.6.2.5"
+    default     = "docker.io/ibmcom/registry-ppc64le:2.6.2.5"
 }
 
 variable "ocp_release_tag" {
     type        = string
     description = "The version of OpenShift you want to sync."
-    default = "4.4.9-ppc64le"
+    default     = "4.4.9-ppc64le"
 }
 
 variable "ocp_release_name" {
     type        = string
     description = "The release name of OpenShift you want to sync."
-    default = "ocp-release"
+    default     = "ocp-release"
 }
